@@ -1,0 +1,43 @@
+{
+    "Problem Name": "Queue Using Linked List",
+    "Description": "Full detailed description for Queue Using Linked List. Includes input-output behavior and queue operations logic.",
+    "Constraints": "1 <= number of operations/elements <= 10^5\nValues may range between -10^9 to 10^9\nQueue operations must follow FIFO constraints.",
+    "Sample Input": [
+        {
+            "input": "Example input varies by queue operation"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "Example output varies by problem"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "test case 1"
+        },
+        {
+            "input": "test case 2"
+        },
+        {
+            "input": "test case 3"
+        },
+        {
+            "input": "test case 4"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "expected result 1"
+        },
+        {
+            "output": "expected result 2"
+        },
+        {
+            "output": "expected result 3"
+        },
+        {
+            "output": "expected result 4"
+        }
+    ]
+}

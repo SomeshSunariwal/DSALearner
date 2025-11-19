@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Maximum Subarray",
+    "Description": "Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
+    "Constraints": "1 <= nums.length <= 10^5\n-10^4 <= nums[i] <= 10^4",
+    "Sample Input": [
+        {
+            "input": "[-2,1,-3,4,-1,2,1,-5,4]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "6"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "[-2,1,-3,4,-1,2,1,-5,4]"
+        },
+        {
+            "input": "[1]"
+        },
+        {
+            "input": "[-1]"
+        },
+        {
+            "input": "[-2,-3,-1]"
+        },
+        {
+            "input": "[5,4,-1,7,8]"
+        },
+        {
+            "input": "[0,0,0]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "6"
+        },
+        {
+            "output": "1"
+        },
+        {
+            "output": "-1"
+        },
+        {
+            "output": "-1"
+        },
+        {
+            "output": "23"
+        },
+        {
+            "output": "0"
+        }
+    ]
+}

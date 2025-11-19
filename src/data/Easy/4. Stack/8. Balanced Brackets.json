@@ -1,0 +1,43 @@
+{
+    "Problem Name": "Balanced Brackets",
+    "Description": "Full detailed description for Balanced Brackets.",
+    "Constraints": "1 <= number of operations/elements <= 10^5\nValues may range between -10^9 to 10^9\nStack operations must run in O(1) or O(n) based on problem constraints.",
+    "Sample Input": [
+        {
+            "input": "Example input varies by stack operation"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "Example output varies by problem"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "test case 1"
+        },
+        {
+            "input": "test case 2"
+        },
+        {
+            "input": "test case 3"
+        },
+        {
+            "input": "test case 4"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "expected result 1"
+        },
+        {
+            "output": "expected result 2"
+        },
+        {
+            "output": "expected result 3"
+        },
+        {
+            "output": "expected result 4"
+        }
+    ]
+}

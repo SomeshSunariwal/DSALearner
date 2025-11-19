@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Majority Element",
+    "Description": "Given an array `nums` of size n, return the majority element. The majority element is the element that appears more than \u230an/2\u230b times. You may assume that the majority element always exists in the array.",
+    "Constraints": "1 <= nums.length <= 5 * 10^4\n-10^9 <= nums[i] <= 10^9",
+    "Sample Input": [
+        {
+            "input": "[3,2,3]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "3"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "[3,2,3]"
+        },
+        {
+            "input": "[2,2,1,1,1,2,2]"
+        },
+        {
+            "input": "[1]"
+        },
+        {
+            "input": "[6,5,5,5,5,2,3]"
+        },
+        {
+            "input": "[4,4,4,2,4]"
+        },
+        {
+            "input": "[-1,-1,-1,2]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "3"
+        },
+        {
+            "output": "2"
+        },
+        {
+            "output": "1"
+        },
+        {
+            "output": "5"
+        },
+        {
+            "output": "4"
+        },
+        {
+            "output": "-1"
+        }
+    ]
+}

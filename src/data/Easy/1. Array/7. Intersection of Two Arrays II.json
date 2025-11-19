@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Intersection of Two Arrays II",
+    "Description": "Given two integer arrays `nums1` and `nums2`, return an array of their intersection. Each element in the result should appear as many times as it shows in both arrays. The result can be in any order.",
+    "Constraints": "1 <= nums1.length, nums2.length <= 10^5\n-10^9 <= nums[i] <= 10^9",
+    "Sample Input": [
+        {
+            "input": "nums1 = [1,2,2,1], nums2 = [2,2]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "[2,2]"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "nums1 = [1,2,2,1], nums2 = [2,2]"
+        },
+        {
+            "input": "nums1 = [4,9,5], nums2 = [9,4,9,8,4]"
+        },
+        {
+            "input": "nums1 = [1,2], nums2 = [3,4]"
+        },
+        {
+            "input": "nums1 = [2,2], nums2 = [2]"
+        },
+        {
+            "input": "nums1 = [], nums2 = [1,2]"
+        },
+        {
+            "input": "nums1 = [1,1,1,2], nums2 = [1,1,2,2]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "[2,2]"
+        },
+        {
+            "output": "[9,4] or [4,9]"
+        },
+        {
+            "output": "[]"
+        },
+        {
+            "output": "[2]"
+        },
+        {
+            "output": "[]"
+        },
+        {
+            "output": "[1,1,2]"
+        }
+    ]
+}

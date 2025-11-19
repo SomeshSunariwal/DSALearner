@@ -1,0 +1,43 @@
+{
+    "Problem Name": "Longest Common Prefix",
+    "Description": "Full detailed description for the string problem: Longest Common Prefix. Includes behavior rules and examples.",
+    "Constraints": "1 <= string length <= 10^5\nString may contain lowercase, uppercase, digits, or symbols.\nOperations must be within O(n) or O(n log n) depending on problem.",
+    "Sample Input": [
+        {
+            "input": "example input"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "example output"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "test case 1"
+        },
+        {
+            "input": "test case 2"
+        },
+        {
+            "input": "test case 3"
+        },
+        {
+            "input": "test case 4"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "expected output 1"
+        },
+        {
+            "output": "expected output 2"
+        },
+        {
+            "output": "expected output 3"
+        },
+        {
+            "output": "expected output 4"
+        }
+    ]
+}

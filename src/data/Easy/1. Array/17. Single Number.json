@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Single Number",
+    "Description": "Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one. Implement a solution with linear runtime and constant extra space.",
+    "Constraints": "1 <= nums.length <= 3 * 10^4\n-10^9 <= nums[i] <= 10^9\nEach element appears twice except for one.",
+    "Sample Input": [
+        {
+            "input": "[2,2,1]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "1"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "[2,2,1]"
+        },
+        {
+            "input": "[4,1,2,1,2]"
+        },
+        {
+            "input": "[1]"
+        },
+        {
+            "input": "[-1,-1,2]"
+        },
+        {
+            "input": "[0,1,0]"
+        },
+        {
+            "input": "[5,5,3,3,2]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "1"
+        },
+        {
+            "output": "4"
+        },
+        {
+            "output": "1"
+        },
+        {
+            "output": "2"
+        },
+        {
+            "output": "1"
+        },
+        {
+            "output": "2"
+        }
+    ]
+}

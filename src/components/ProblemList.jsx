@@ -1,7 +1,11 @@
 import { useState } from "react";
 import AnimatedList from "../UIComp/AnimatedList";
+import { useDispatch } from "react-redux";
+import { setProblem } from "../store/problemSlice";
 
 export default function ProblemList() {
+
+    const dispatch = useDispatch();
 
     const items = [
         'Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5',
@@ -9,7 +13,17 @@ export default function ProblemList() {
     ];
 
     const levels = ["Easy", "Medium", "Hard"];
-    const categories = ["Link List", "Card List", "Detailed List"];
+    const categories = ["Array",
+        "LinkedList",
+        "Stack",
+        "Queue",
+        "Strings",
+        "Searching & Sorting",
+        "Tree",
+        "Graph",
+        "HashMap",
+        "Dynamic Programming"
+    ];
 
     const [openLevel, setOpenLevel] = useState(null);
     const [openCategory, setOpenCategory] = useState({});
@@ -92,7 +106,18 @@ export default function ProblemList() {
                                             <div >
                                                 <AnimatedList
                                                     items={items}
-                                                    onItemSelect={(item, i) => console.log(level, cat, item, i)}
+                                                    onItemSelect={(item, i) => {
+                                                        const fullValue = `${level} → ${cat} → ${item}`;
+                                                        dispatch(setProblem({
+                                                            ProblemName: item,
+                                                            Description: fullValue,
+                                                            Constraints: "1 <= n <= 10^5",
+                                                            SampleInput: ["1 2 3"],
+                                                            SampleOutput: ["6"],
+                                                            TestCaseInput: ["2 2"],
+                                                            TestCaseOutput: ["4"]
+                                                        }));
+                                                    }}
                                                     showGradients={false}
                                                     enableArrowNavigation={true}
                                                     displayScrollbar={true}

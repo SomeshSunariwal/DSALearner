@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Contains Duplicate",
+    "Description": "Given an integer array `nums`, return true if any value appears at least twice in the array, and return false if every element is distinct.",
+    "Constraints": "1 <= nums.length <= 10^5\n-10^9 <= nums[i] <= 10^9",
+    "Sample Input": [
+        {
+            "input": "[1,2,3,1]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "true"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "[1,2,3,1]"
+        },
+        {
+            "input": "[1,2,3,4]"
+        },
+        {
+            "input": "[]"
+        },
+        {
+            "input": "[0,0]"
+        },
+        {
+            "input": "[-1,-1,2]"
+        },
+        {
+            "input": "[5,4,3,2,1,5]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "true"
+        },
+        {
+            "output": "false"
+        },
+        {
+            "output": "false"
+        },
+        {
+            "output": "true"
+        },
+        {
+            "output": "true"
+        },
+        {
+            "output": "true"
+        }
+    ]
+}

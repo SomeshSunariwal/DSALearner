@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "@reduxjs/toolkit": "^2.10.1",
     "axios": "^1.13.2",
     "clang-format": "^1.8.0",
     "framer-motion": "^12.23.24",
@@ -19,6 +20,7 @@
     "prettier-plugin-java": "^2.7.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.6",
     "react-split": "^2.0.14",
     "xlsx": "^0.18.5",

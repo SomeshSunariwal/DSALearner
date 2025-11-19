@@ -1,0 +1,55 @@
+{
+    "Problem Name": "Best Time to Buy and Sell Stock",
+    "Description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve. If you cannot achieve any profit, return 0.",
+    "Constraints": "1 <= prices.length <= 10^5\n0 <= prices[i] <= 10^5",
+    "Sample Input": [
+        {
+            "input": "prices = [7,1,5,3,6,4]"
+        }
+    ],
+    "Sample Output": [
+        {
+            "output": "5"
+        }
+    ],
+    "Test Case Input": [
+        {
+            "input": "prices = [7,1,5,3,6,4]"
+        },
+        {
+            "input": "prices = [7,6,4,3,1]"
+        },
+        {
+            "input": "prices = [1,2,3,4,5]"
+        },
+        {
+            "input": "prices = [3,3,5,0,0,3,1,4]"
+        },
+        {
+            "input": "prices = [2,1,2,1,0,1,2]"
+        },
+        {
+            "input": "prices = [1]"
+        }
+    ],
+    "Test Case Output": [
+        {
+            "output": "5"
+        },
+        {
+            "output": "0"
+        },
+        {
+            "output": "4"
+        },
+        {
+            "output": "4"
+        },
+        {
+            "output": "2"
+        },
+        {
+            "output": "0"
+        }
+    ]
+}
