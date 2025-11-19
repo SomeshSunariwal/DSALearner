@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import "./editorpanel.css";
 
@@ -13,30 +13,123 @@ int main() {
     cout << a * 2;
     return 0;
 }`);
-
     const [language, setLanguage] = useState("cpp");
     const [intellisense, setIntellisense] = useState(true);
 
-    // Expose initial values for ExecPanel
+    // keep refs to editor + monaco
+    const editorRef = useRef(null);
+    const monacoRef = useRef(null);
+
+    // ================================
+    //      INITIAL GLOBAL SETUP
+    // ================================
     useEffect(() => {
         window.currentCode = code;
         window.currentLanguage = language;
+        window.currentMode = "local";
     }, []); // run once on mount
 
-    // update global language whenever it changes
     useEffect(() => {
         window.currentLanguage = language;
     }, [language]);
 
-    // ---------------------------
-    // Handle editor changes
-    // ---------------------------
+    // ================================
+    //      HANDLE EDITOR CHANGE
+    // ================================
     const handleEditorChange = (value) => {
-        // Monaco sometimes passes undefined — guard it
         const next = typeof value === "string" ? value : "";
         setCode(next);
-        // expose globally so ExecPanel/run button can read it
         window.currentCode = next;
+    };
+
+    // ------------------------------
+    // Simple brace-based fallback formatter
+    // (used only if Monaco doesn't provide a formatter)
+    // ------------------------------
+    const simpleIndentFormatter = (raw) => {
+        const lines = raw.split("\n");
+        let indentLevel = 0;
+        const indentSize = 4;
+        const out = [];
+
+        // helper: count net braces on a line ignoring strings (simple heuristic)
+        const countBraces = (s) => {
+            // remove string literals (simplistic)
+            let withoutStr = s.replace(/"(?:\\.|[^"\\])*"/g, '""').replace(/'(?:\\.|[^'\\])*'/g, "''");
+            // remove single-line comments
+            withoutStr = withoutStr.replace(/\/\/.*$/g, "");
+            // remove block comments quickly (doesn't handle multi-line fully, but ok)
+            withoutStr = withoutStr.replace(/\/\*[\s\S]*?\*\//g, "");
+            let open = 0;
+            let close = 0;
+            for (let ch of withoutStr) {
+                if (ch === "{") open++;
+                if (ch === "}") close++;
+            }
+            return { open, close };
+        };
+
+        for (let rawLine of lines) {
+            let line = rawLine.trim();
+
+            // skip empty lines but preserve a single blank line
+            if (line === "") {
+                out.push("");
+                continue;
+            }
+
+            // if line begins with a closing brace, dedent first
+            if (line.startsWith("}")) {
+                indentLevel = Math.max(0, indentLevel - 1);
+            }
+
+            const indent = " ".repeat(indentLevel * indentSize);
+            out.push(indent + line);
+
+            // update indent level for next line
+            const { open, close } = countBraces(line);
+
+            // net change: open - close (but if a line had close more than open,
+            // we already accounted when it starts with a close)
+            indentLevel += open - close;
+            if (indentLevel < 0) indentLevel = 0;
+        }
+
+        return out.join("\n");
+    };
+
+    const prettifyCode = () => {
+        if (["cpp", "c", "java"].includes(language)) {
+            // USE YOUR OWN SIMPLE FORMATTER
+            const formatted = simpleIndentFormatter(code);
+
+            setCode(formatted);
+            window.currentCode = formatted;
+
+            if (editorRef.current) {
+                editorRef.current.setValue(formatted);
+            }
+            return;
+        }
+
+        // DEFAULT: try Monaco formatter
+        try {
+            editorRef.current?.getAction("editor.action.formatDocument").run();
+            const formatted = editorRef.current.getValue();
+            setCode(formatted);
+            window.currentCode = formatted;
+        } catch (err) {
+            console.error("Format failed:", err);
+        }
+    };
+
+    // Called when editor mounts — store references
+    const handleEditorMount = (editorInstance, monacoInstance) => {
+        editorRef.current = editorInstance;
+        monacoRef.current = monacoInstance;
+        // also expose globally for ExecPanel or debug if you rely on window.monacoEditor
+        window.monacoEditor = editorInstance;
+        window.monaco = monacoInstance;
     };
 
     return (
@@ -64,9 +157,9 @@ int main() {
                     IntelliSense: {intellisense ? "ON" : "OFF"}
                 </button>
 
-                {/* Execution Mode (kept here for convenience, ExecPanel reads window.currentMode if needed) */}
+                {/* Execution Mode */}
                 <select
-                    value={window.currentMode || "local"}
+                    value={window.currentMode}
                     onChange={(e) => (window.currentMode = e.target.value)}
                     className="editor-lang-select"
                     style={{ marginLeft: "10px" }}
@@ -74,6 +167,24 @@ int main() {
                     <option value="local">Local Compiler</option>
                     <option value="docker">Docker</option>
                 </select>
+
+                {/* CODE PRETTIER (right-most) */}
+                <button
+                    className="editor-prettify-btn"
+                    onClick={prettifyCode}
+                    style={{
+                        marginLeft: "auto",
+                        padding: "6px 14px",
+                        background: "#4b5563",
+                        borderRadius: "8px",
+                        border: "none",
+                        color: "white",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                    }}
+                >
+                    ✨ Prettify
+                </button>
             </div>
 
             {/* Monaco Editor */}
@@ -84,6 +195,7 @@ int main() {
                     value={code}
                     onChange={handleEditorChange}
                     theme="vs-dark"
+                    onMount={handleEditorMount}
                     options={{
                         fontSize: 14,
                         minimap: { enabled: false },
