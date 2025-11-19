@@ -77,8 +77,9 @@ async function runLocal(language, code, stdin = '') {
 
             // WINDOWS FIX:
             // ------------------------------
-            // Use spawn because echo | exe NEVER works properly on Windows
+            // // Use spawn because echo | exe NEVER works properly on Windows
             if (process.platform === "win32") {
+                console.log("Here 2");
                 const runRes = await spawnRun(exePath, stdin);
                 return {
                     success: !runRes.error,

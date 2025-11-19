@@ -45,7 +45,7 @@ const GlareHover = ({
     return (
         <div
             className={`glare-hover ${playOnce ? 'glare-hover--play-once' : ''} ${className}`}
-            style={{ ...vars, ...style }}
+            style={{ ...vars, ...style, pointerEvents: "auto" }}
         >
             {children}
         </div>

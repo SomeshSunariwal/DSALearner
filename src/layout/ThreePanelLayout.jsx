@@ -7,7 +7,7 @@ export default function ThreePanelLayout({ left, middle, rightTop, rightBottom }
         <div className="three-panel-container">
             <Split
                 direction="horizontal"
-                sizes={[25, 25, 50]}
+                sizes={[15, 35, 50]}
                 minSize={180}
                 gutterSize={8}
                 className="horizontal-panels"

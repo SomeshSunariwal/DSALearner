@@ -1,51 +1,38 @@
 .glare-hover {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: var(--gh-br);
     width: var(--gh-width);
     height: var(--gh-height);
     background: var(--gh-bg);
-    border-radius: var(--gh-br);
     border: 1px solid var(--gh-border);
-    overflow: hidden;
-    position: relative;
-    display: grid;
-    place-items: center;
+
+    /* 🔥 IMPORTANT FIX */
+    pointer-events: auto;
 }
 
-.glare-hover::before {
-    content: '';
+/* Shine Layer */
+.glare-hover::after {
+    content: "";
     position: absolute;
-    inset: 0;
+    top: -200%;
+    left: -200%;
+    width: var(--gh-size);
+    height: var(--gh-size);
+
     background: linear-gradient(var(--gh-angle),
-            hsla(0, 0%, 0%, 0) 60%,
-            var(--gh-rgba) 70%,
-            hsla(0, 0%, 0%, 0),
-            hsla(0, 0%, 0%, 0) 100%);
-    transition: var(--gh-duration) ease;
-    background-size:
-        var(--gh-size) var(--gh-size),
-        100% 100%;
-    background-repeat: no-repeat;
-    background-position:
-        -100% -100%,
-        0 0;
+            transparent,
+            var(--gh-rgba),
+            transparent);
+
+    transform: translateX(-200%) rotate(20deg);
+    transition: transform var(--gh-duration) ease;
+
+    /* 🔥 Must not block clicks */
+    pointer-events: none;
 }
 
-.glare-hover:hover {
-    cursor: pointer;
-}
-
-.glare-hover:hover::before {
-    background-position:
-        100% 100%,
-        0 0;
-}
-
-.glare-hover--play-once::before {
-    transition: none;
-}
-
-.glare-hover--play-once:hover::before {
-    transition: var(--gh-duration) ease;
-    background-position:
-        100% 100%,
-        0 0;
+.glare-hover:hover::after {
+    transform: translateX(200%) rotate(20deg);
 }
