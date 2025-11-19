@@ -173,23 +173,89 @@ int main() {
                 </select>
 
                 {/* FONT SIZE SLIDER */}
-                <div style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}>
-                    <label style={{ marginRight: "8px", color: "#ddd", fontSize: "14px" }}>
+                {/* MACOS STYLE FONT SIZE SLIDER */}
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        marginLeft: "20px",
+                        padding: "6px 12px",
+                    }}
+                >
+                    <label
+                        style={{
+                            color: "#000000ff",
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+                        }}
+                    >
                         {fontSize}px
                     </label>
+
                     <input
                         type="range"
                         min="10"
                         max="40"
                         value={fontSize}
                         onChange={(e) => setFontSize(Number(e.target.value))}
-                        style={{
-                            width: "120px",
-                            cursor: "pointer",
-                            accentColor: "#3b82f6",   // Elastic look
-                        }}
+                        className="mac-slider"
+                        style={{ width: "150px" }}
                     />
+
+                    <style>{`
+        /* Track */
+        .mac-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(to right, #d3d3d3, #aaa);
+            outline: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        /* Track (hover) */
+        .mac-slider:hover {
+            background: linear-gradient(to right, #e0e0e0, #b8b8b8);
+        }
+
+        /* Thumb */
+        .mac-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        /* Thumb hover */
+        .mac-slider::-webkit-slider-thumb:hover {
+            background: #fafafa;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+            transform: scale(1.08);
+        }
+
+        /* Firefox */
+        .mac-slider::-moz-range-thumb {
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+    `}</style>
                 </div>
+
 
 
                 {/* PUSH NEXT BUTTONS TO RIGHT */}
