@@ -2,11 +2,9 @@ import React from "react";
 import Split from "react-split";
 import "./threepanel.css";
 
-export default function ThreePanelLayout({ left, middle, right }) {
+export default function ThreePanelLayout({ left, middle, rightTop, rightBottom }) {
     return (
         <div className="three-panel-container">
-
-            {/* Horizontal split → Left | Middle | Right */}
             <Split
                 direction="horizontal"
                 sizes={[25, 25, 50]}
@@ -20,10 +18,18 @@ export default function ThreePanelLayout({ left, middle, right }) {
                 {/* MIDDLE COLUMN */}
                 <div className="panel">{middle}</div>
 
-                {/* RIGHT COLUMN */}
-                <div className="panel">{right}</div>
+                {/* RIGHT COLUMN (top editor + bottom output split vertically) */}
+                <Split
+                    direction="vertical"
+                    sizes={[75, 25]}
+                    minSize={100}
+                    gutterSize={8}
+                    className="vertical-right-split"
+                >
+                    <div className="panel">{rightTop}</div>
+                    <div className="panel">{rightBottom}</div>
+                </Split>
             </Split>
-
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
+import "./editorpanel.css";
 
 export default function EditorPanel() {
     const [code, setCode] = useState("// Start typing...");
@@ -7,38 +8,16 @@ export default function EditorPanel() {
     const [intellisense, setIntellisense] = useState(true);
 
     return (
-        <div
-            style={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-            }}
-        >
+        <div className="editor-container">
+
             {/* Toolbar */}
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                    background: "#fff",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                }}
-            >
-                {/* Language Select */}
+            <div className="editor-toolbar">
+
+                {/* Language Dropdown */}
                 <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    style={{
-                        padding: "8px 14px",
-                        borderRadius: "8px",
-                        border: "1px solid #d1d5db",
-                        fontSize: "14px",
-                        cursor: "pointer"
-                    }}
+                    className="editor-lang-select"
                 >
                     <option value="cpp">C++</option>
                     <option value="c">C</option>
@@ -49,22 +28,16 @@ export default function EditorPanel() {
                 {/* IntelliSense Toggle */}
                 <button
                     onClick={() => setIntellisense(!intellisense)}
-                    style={{
-                        padding: "8px 14px",
-                        borderRadius: "8px",
-                        background: intellisense ? "#6366f1" : "#9ca3af",
-                        color: "white",
-                        border: "none",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                    }}
+                    className={`editor-intellisense-btn ${intellisense ? "editor-intellisense-on" : "editor-intellisense-off"
+                        }`}
                 >
                     IntelliSense: {intellisense ? "ON" : "OFF"}
                 </button>
+
             </div>
 
             {/* Monaco Editor */}
-            <div style={{ flexGrow: 1, minHeight: 0 }}>
+            <div className="editor-wrapper">
                 <Editor
                     height="100%"
                     language={language}
@@ -76,7 +49,7 @@ export default function EditorPanel() {
                         minimap: { enabled: false },
                         smoothScrolling: true,
                         scrollBeyondLastLine: false,
-                        automaticLayout: true,            // <---- Important
+                        automaticLayout: true,
                         suggestOnTriggerCharacters: intellisense,
                         quickSuggestions: intellisense,
                         wordBasedSuggestions: intellisense,
@@ -84,6 +57,7 @@ export default function EditorPanel() {
                     }}
                 />
             </div>
+
         </div>
     );
 }

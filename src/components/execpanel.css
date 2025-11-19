@@ -1,0 +1,77 @@
+.exec-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* INPUT BOX WRAPPER */
+.exec-input-wrapper {
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exec-input-label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.exec-input-area {
+    width: 100%;
+    height: 80px;
+    resize: vertical;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-family: monospace;
+    font-size: 14px;
+    color: #111827;
+}
+
+/* BUTTON PANEL */
+.exec-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.exec-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.exec-btn-run {
+    background: #10b981;
+}
+
+.exec-btn-submit {
+    background: #6366f1;
+}
+
+/* OUTPUT BOX */
+.exec-output {
+    flex-grow: 1;
+    background: #111827;
+    color: #d1d5db;
+    padding: 12px;
+    border-radius: 10px;
+    overflow: auto;
+    font-family: monospace;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
