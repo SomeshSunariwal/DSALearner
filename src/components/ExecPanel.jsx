@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./execpanel.css";
+import ElectricBorder from "../UIComp/ElectricBorder";
+import GlareHover from "../UIComp/GlareHover";
 
 export default function ExecPanel() {
     const [input, setInput] = useState("");
@@ -19,11 +21,30 @@ export default function ExecPanel() {
                 ></textarea>
             </div>
 
-            {/* BUTTON ROW */}
             <div className="exec-buttons">
-                <button className="exec-btn exec-btn-run">Run</button>
-                <button className="exec-btn exec-btn-submit">Submit</button>
+
+                {/* Run button (glare) */}
+                <div>
+                    <GlareHover glareColor="#ffffff"
+                        glareOpacity={0.3}
+                        glareAngle={-30}
+                        glareSize={300}
+                        transitionDuration={800}
+                        playOnce={false}>
+
+                        <button className="exec-btn exec-btn-run">Run</button>
+                    </GlareHover>
+                </div>
+
+                {/* Submit button with electric border */}
+                <div >
+                    <ElectricBorder color="#00eaff" speed={1.5} chaos={1.2} thickness={2}>
+                        <button className="exec-btn exec-btn-submit">Submit</button>
+                    </ElectricBorder>
+                </div>
+
             </div>
+
 
             {/* OUTPUT BOX */}
             <div className="exec-output">
