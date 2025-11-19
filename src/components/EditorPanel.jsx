@@ -5,12 +5,12 @@ import "./editorpanel.css";
 export default function EditorPanel() {
     const [code, setCode] = useState(`// Start typing C++ code here...
 #include <iostream>
+#include <bits.stdc++.h>
+
 using namespace std;
 
 int main() {
-    int a;
-    cin >> a;
-    cout << a * 2;
+    cout << "Hello World!" << endl;
     return 0;
 }`);
     const [language, setLanguage] = useState("cpp");

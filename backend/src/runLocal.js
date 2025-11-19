@@ -109,6 +109,16 @@ async function runLocal(language, code, stdin = '') {
         else if (language === 'python') {
             srcPath = tmpFileName('prog', 'py');
             fs.writeFileSync(srcPath, code);
+
+            // --- Syntax Check ---
+            const syntaxCheck = await execPromise(`python -m py_compile "${srcPath}"`);
+            if (syntaxCheck.stderr && syntaxCheck.stderr.length > 0) {
+                return {
+                    success: false,
+                    compile: { stdout: syntaxCheck.stdout, stderr: syntaxCheck.stderr }
+                };
+            }
+
             runCmd = `python "${srcPath}"`;
         }
 
