@@ -9,7 +9,8 @@ const problemSlice = createSlice({
         SampleInputs: [],
         SampleOutputs: [],
         TestCaseInputs: [],
-        TestCaseOutputs: []
+        TestCaseOutputs: [],
+        TestCaseActualOutputs: []
     },
 
     reducers: {

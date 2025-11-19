@@ -112,10 +112,33 @@ export default function ProblemList() {
                                                             ProblemName: item,
                                                             Description: fullValue,
                                                             Constraints: "1 <= n <= 10^5",
-                                                            SampleInput: ["1 2 3"],
-                                                            SampleOutput: ["6"],
-                                                            TestCaseInput: ["2 2"],
-                                                            TestCaseOutput: ["4"]
+                                                            SampleInput: [
+                                                                {
+                                                                    "input1": "1 2 3"
+                                                                },
+                                                                {
+                                                                    "input2": "1 2 3"
+                                                                }
+
+                                                            ],
+                                                            SampleOutput: [
+                                                                {
+                                                                    "output1": "6"
+                                                                },
+                                                                {
+                                                                    "output2": "6"
+                                                                }
+                                                            ],
+                                                            TestCaseInput: [
+                                                                {
+                                                                    "input1": "1 2 3"
+                                                                }
+                                                            ],
+                                                            TestCaseOutput: [
+                                                                {
+                                                                    "output1": "6"
+                                                                }
+                                                            ]
                                                         }));
                                                     }}
                                                     showGradients={false}

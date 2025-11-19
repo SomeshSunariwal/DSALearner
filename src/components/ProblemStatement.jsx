@@ -53,44 +53,70 @@ export default function ProblemStatement() {
                 </pre>
             </div>
 
-            {/* Sample Input */}
             <div style={{ marginBottom: "20px" }}>
-                <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>🔤 Sample Input</h2>
+                <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>🧪 Sample Testcases</h2>
 
-                <pre
-                    style={{
-                        background: "#1e1e1e",
-                        color: "#dcdcdc",
-                        padding: "12px",
-                        borderRadius: "6px",
-                        overflowX: "auto",
-                        fontSize: "14px"
-                    }}
-                >
-                    {Array.isArray(SampleInput) && SampleInput.length
-                        ? SampleInput.join("\n")
-                        : "No sample input available."}
-                </pre>
-            </div>
+                {(SampleInput && SampleInput.length > 0) ? (
+                    SampleInput.map((sampleObj, index) => {
+                        // Input text
+                        const inputKey = Object.keys(sampleObj)[0];
+                        const inputValue = sampleObj[inputKey];
 
-            {/* Sample Output */}
-            <div style={{ marginBottom: "20px" }}>
-                <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>📤 Sample Output</h2>
+                        // Output text (same index)
+                        const outputObj = SampleOutput[index] || {};
+                        const outputKey = Object.keys(outputObj)[0];
+                        const outputValue = outputObj[outputKey];
 
-                <pre
-                    style={{
-                        background: "#1e1e1e",
-                        color: "#dcdcdc",
-                        padding: "12px",
-                        borderRadius: "6px",
-                        overflowX: "auto",
-                        fontSize: "14px"
-                    }}
-                >
-                    {Array.isArray(SampleOutput) && SampleOutput.length
-                        ? SampleOutput.join("\n")
-                        : "No sample output available."}
-                </pre>
+                        return (
+                            <div
+                                key={index}
+                                style={{
+                                    marginBottom: "20px",
+                                    padding: "10px",
+                                    borderBottom: "1px solid #aaa"
+                                }}
+                            >
+                                {/* Input */}
+                                <h3 style={{ marginBottom: "6px" }}>
+                                    🔤 Input {index + 1}:
+                                </h3>
+
+                                <pre
+                                    style={{
+                                        background: "#1e1e1e",
+                                        color: "#dcdcdc",
+                                        padding: "12px",
+                                        borderRadius: "6px",
+                                        overflowX: "auto",
+                                        fontSize: "14px"
+                                    }}
+                                >
+                                    {inputValue}
+                                </pre>
+
+                                {/* Output */}
+                                <h3 style={{ marginBottom: "6px", marginTop: "12px" }}>
+                                    📤 Output {index + 1}:
+                                </h3>
+
+                                <pre
+                                    style={{
+                                        background: "#1e1e1e",
+                                        color: "#dcdcdc",
+                                        padding: "12px",
+                                        borderRadius: "6px",
+                                        overflowX: "auto",
+                                        fontSize: "14px"
+                                    }}
+                                >
+                                    {outputValue || "No output provided."}
+                                </pre>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <p>No sample testcases available.</p>
+                )}
             </div>
         </div>
     );

@@ -19,6 +19,9 @@ int main() {
     // keep refs to editor + monaco
     const editorRef = useRef(null);
     const monacoRef = useRef(null);
+    const [fontSize, setFontSize] = useState(14);
+    const [wordWrap, setWordWrap] = useState(false);
+
 
     // ================================
     //      INITIAL GLOBAL SETUP
@@ -136,6 +139,7 @@ int main() {
         <div className="editor-container">
             {/* Toolbar */}
             <div className="editor-toolbar">
+
                 {/* Language Dropdown */}
                 <select
                     value={language}
@@ -168,24 +172,64 @@ int main() {
                     <option value="docker">Docker</option>
                 </select>
 
-                {/* CODE PRETTIER (right-most) */}
-                <button
-                    className="editor-prettify-btn"
-                    onClick={prettifyCode}
-                    style={{
-                        marginLeft: "auto",
-                        padding: "6px 14px",
-                        background: "#4b5563",
-                        borderRadius: "8px",
-                        border: "none",
-                        color: "white",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                    }}
-                >
-                    ✨ Prettify
-                </button>
+                {/* FONT SIZE SLIDER */}
+                <div style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}>
+                    <label style={{ marginRight: "8px", color: "#ddd", fontSize: "14px" }}>
+                        {fontSize}px
+                    </label>
+                    <input
+                        type="range"
+                        min="10"
+                        max="40"
+                        value={fontSize}
+                        onChange={(e) => setFontSize(Number(e.target.value))}
+                        style={{
+                            width: "120px",
+                            cursor: "pointer",
+                            accentColor: "#3b82f6",   // Elastic look
+                        }}
+                    />
+                </div>
+
+
+                {/* PUSH NEXT BUTTONS TO RIGHT */}
+                <div style={{ marginLeft: "auto", display: "flex", gap: "14px" }}>
+
+                    {/* WORD WRAP */}
+                    <button
+                        onClick={() => setWordWrap((v) => !v)}
+                        style={{
+                            padding: "6px 12px",
+                            background: wordWrap ? "#2563eb" : "#374151",
+                            borderRadius: "6px",
+                            border: "none",
+                            color: "white",
+                            cursor: "pointer",
+                            fontSize: "14px",
+                        }}
+                    >
+                        {wordWrap ? "Wrap: ON" : "Wrap: OFF"}
+                    </button>
+
+                    {/* PRETTIFY */}
+                    <button
+                        onClick={prettifyCode}
+                        style={{
+                            padding: "6px 14px",
+                            background: "#4b5563",
+                            borderRadius: "8px",
+                            border: "none",
+                            color: "white",
+                            cursor: "pointer",
+                            fontSize: "14px",
+                        }}
+                    >
+                        ✨ Prettify
+                    </button>
+
+                </div>
             </div>
+
 
             {/* Monaco Editor */}
             <div className="editor-wrapper">
@@ -197,16 +241,18 @@ int main() {
                     theme="vs-dark"
                     onMount={handleEditorMount}
                     options={{
-                        fontSize: 14,
+                        fontSize: fontSize,
+                        wordWrap: wordWrap ? "on" : "off",
                         minimap: { enabled: false },
                         scrollBeyondLastLine: false,
                         automaticLayout: true,
 
-                        // INTELLISENSE OPTIONS
+                        // INTELLISENSE
                         suggestOnTriggerCharacters: intellisense,
                         quickSuggestions: intellisense ? "on" : false,
                         wordBasedSuggestions: intellisense,
                         parameterHints: { enabled: intellisense },
+
                         autoClosingBrackets: "always",
                         autoIndent: "full",
                         tabSize: 2,
