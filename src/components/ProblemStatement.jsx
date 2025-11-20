@@ -1,13 +1,62 @@
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function ProblemStatement() {
+
+    const { data, loading, error } = useSelector((state) => state.problem);
+
+    const [problem, setProblem] = useState({
+        ProblemName: "",
+        Description: "",
+        Constraints: "",
+        SampleInputs: [],
+        SampleOutputs: [],
+        TestCaseInputs: [],
+        TestCaseOutputs: []
+    });
+
+    // Sync Redux → Local State
+    useEffect(() => {
+        if (!data) return;
+
+        setProblem({
+            ProblemName: data.ProblemName || "",
+            Description: data.Description || "",
+            Constraints: data.Constraints || "",
+            SampleInputs: data.SampleInputs || [],
+            SampleOutputs: data.SampleOutputs || [],
+            TestCaseInputs: data.TestCaseInputs || [],
+            TestCaseOutputs: data.TestCaseOutputs || []
+        });
+    }, [data]);
+
     const {
         ProblemName,
         Description,
         Constraints,
-        SampleInput,
-        SampleOutput
-    } = useSelector((state) => state.problem);
+        SampleInputs,
+        SampleOutputs
+    } = problem;
+
+    // -------------------------
+    // STATUS HANDLING
+    // -------------------------
+    if (loading) {
+        return (
+            <div style={{ padding: "20px" }}>
+                <h2>Loading problem… 🔄</h2>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div style={{ padding: "20px", color: "red" }}>
+                <h2>Error loading problem ❌</h2>
+                <p>{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -24,7 +73,6 @@ export default function ProblemStatement() {
                 {ProblemName || "Select a problem"}
             </h1>
 
-            {/* Markdown-style horizontal line */}
             <hr style={{ margin: "16px 0" }} />
 
             {/* Description */}
@@ -53,17 +101,16 @@ export default function ProblemStatement() {
                 </pre>
             </div>
 
+            {/* Sample Testcases */}
             <div style={{ marginBottom: "20px" }}>
                 <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>🧪 Sample Testcases</h2>
 
-                {(SampleInput && SampleInput.length > 0) ? (
-                    SampleInput.map((sampleObj, index) => {
-                        // Input text
+                {(SampleInputs && SampleInputs.length > 0) ? (
+                    SampleInputs.map((sampleObj, index) => {
                         const inputKey = Object.keys(sampleObj)[0];
                         const inputValue = sampleObj[inputKey];
 
-                        // Output text (same index)
-                        const outputObj = SampleOutput[index] || {};
+                        const outputObj = SampleOutputs[index] || {};
                         const outputKey = Object.keys(outputObj)[0];
                         const outputValue = outputObj[outputKey];
 

@@ -23,6 +23,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.6",
     "react-split": "^2.0.14",
+    "redux-saga": "^1.4.2",
     "xlsx": "^0.18.5",
     "zustand": "^5.0.8"
   },

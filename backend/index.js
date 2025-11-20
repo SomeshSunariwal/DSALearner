@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
 // LOCAL EXECUTION
 // ----------------------
 app.post("/run/local", async (req, res) => {
+    logRequest(req);
     const { language, code, stdin } = req.body;
 
     try {
@@ -43,6 +44,7 @@ app.post("/run/local", async (req, res) => {
 // DOCKER EXECUTION
 // ----------------------
 app.post("/run/docker", async (req, res) => {
+    logRequest(req);
     const { language, code, stdin } = req.body;
 
     try {
@@ -54,6 +56,7 @@ app.post("/run/docker", async (req, res) => {
 });
 
 app.get("/problems-meta", (req, res) => {
+    logRequest(req);
     const basePath = path.join(__dirname, "data");
 
     const difficulties = fs.readdirSync(basePath)
@@ -99,6 +102,7 @@ app.get("/problems-meta", (req, res) => {
 // API 2: RETURN ACTUAL FULL PROBLEM JSON
 // ------------------------------------------------------------------
 app.get("/problem", (req, res) => {
+    logRequest(req);
     const { difficulty, category, file } = req.query;
 
     if (!difficulty || !category || !file) {
@@ -123,6 +127,10 @@ app.get("/problem", (req, res) => {
         res.status(500).json({ error: "Failed to parse JSON file." });
     }
 });
+
+function logRequest(req) {
+    console.log(`${req.url}`);
+}
 
 
 // Start server
