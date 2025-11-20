@@ -29,18 +29,6 @@ export default function ProblemList() {
 
 
     const levels = problemList.map(item => item.difficulty);
-    // const categories = ["Array",
-    //     "LinkedList",
-    //     "Stack",
-    //     "Queue",
-    //     "Strings",
-    //     "Searching & Sorting",
-    //     "Tree",
-    //     "Graph",
-    //     "HashMap",
-    //     "Dynamic Programming"
-    // ];
-
 
     const toggleLevelAndListSet = (level, index) => {
         setOpenLevel(openLevel === index ? null : index);
@@ -56,10 +44,22 @@ export default function ProblemList() {
 
     const toggleCategoryAndListSet = (level, category, levelIndex, categoryIndex) => {
         const key = `${levelIndex}-${categoryIndex}`;
-        setOpenCategory((prev) => ({
-            ...prev,
-            [key]: !prev[key]
-        }));
+
+        setOpenCategory(prev => {
+            const updated = {};
+
+            // Close ALL categories in this level
+            Object.keys(prev).forEach(k => {
+                if (k.startsWith(`${levelIndex}-`)) {
+                    updated[k] = false;
+                }
+            });
+
+            // Toggle only the selected category
+            updated[key] = !prev[key];
+
+            return updated;
+        });
 
         const problems = problemList[levelIndex]?.categories[categoryIndex]?.problems || [];
 
