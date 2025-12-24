@@ -33,6 +33,16 @@ export default function ExecPanel() {
         }));
     };
 
+    const handleSubmit = () => {
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        //////////       Handle Submit    ///////////////
+        /////////////////////////////////////////////////
+        /////////////////////////////////////////////////
+        console.log("Handle Submit ");
+
+    }
+
     /* ============================= */
     /* HANDLE SAGA RESULT */
     /* ============================= */
@@ -106,7 +116,7 @@ export default function ExecPanel() {
                     <button
                         type="button"
                         className="exec-btn exec-btn-submit"
-                        disabled
+                        onClick={handleSubmit}
                     >
                         Submit
                     </button>
