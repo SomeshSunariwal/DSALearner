@@ -78,6 +78,7 @@ export default function ExecPanel() {
                     playOnce={false}
                 >
                     <button
+                        type="button"
                         className="exec-btn exec-btn-run"
                         onClick={handleRun}
                         disabled={loading}
@@ -89,6 +90,7 @@ export default function ExecPanel() {
                 {/* Submit (future feature) */}
                 <ElectricBorder color="#00eaff" speed={1.5} chaos={1.2} thickness={2}>
                     <button
+                        type="button"
                         className="exec-btn exec-btn-submit"
                         disabled
                     >

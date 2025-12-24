@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import Editor from "@monaco-editor/react";
+import Constant from "../constants/constants"
 import "./editorpanel.css";
 
 export default function EditorPanel() {
-    const [code, setCode] = useState(`// Start typing C++ code here...
+    const DefaultCode = `// Start typing C++ code here...
 #include <iostream>
 #include <bits.stdc++.h>
 
@@ -12,7 +14,8 @@ using namespace std;
 int main() {
     cout << "Hello World!" << endl;
     return 0;
-}`);
+}`
+    const [code, setCode] = useState(DefaultCode);
     const [language, setLanguage] = useState("cpp");
     const [intellisense, setIntellisense] = useState(true);
 
@@ -22,6 +25,26 @@ int main() {
     const [fontSize, setFontSize] = useState(14);
     const [wordWrap, setWordWrap] = useState(false);
 
+    const { data, loading, error } = useSelector((state) => state.problem);
+
+    // ================================
+    //      Set Sample Code as per the language
+    // ==============
+    // ==================
+
+    useEffect(() => {
+        if (!loading && error == null) {
+            setCode(data[Constant.SAMPLE_CODE][language])
+        } else {
+            setCode(DefaultCode)
+        }
+        // Set Initial Code
+    }, [loading, language])
+
+
+    useEffect(() => {
+        setCode(DefaultCode)
+    }, [])
 
     // ================================
     //      INITIAL GLOBAL SETUP
@@ -30,11 +53,8 @@ int main() {
         window.currentCode = code;
         window.currentLanguage = language;
         window.currentMode = "local";
-    }, []); // run once on mount
+    }, [language]); // run once on mount
 
-    useEffect(() => {
-        window.currentLanguage = language;
-    }, [language]);
 
     // ================================
     //      HANDLE EDITOR CHANGE
@@ -154,6 +174,7 @@ int main() {
 
                 {/* IntelliSense Toggle */}
                 <button
+                    type="button"
                     onClick={() => setIntellisense((v) => !v)}
                     className={`editor-intellisense-btn ${intellisense ? "editor-intellisense-on" : "editor-intellisense-off"
                         }`}
@@ -206,54 +227,54 @@ int main() {
 
                     <style>{`
         /* Track */
-        .mac-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            height: 4px;
-            border-radius: 2px;
-            background: linear-gradient(to right, #d3d3d3, #aaa);
-            outline: none;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
+        .mac - slider {
+                            - webkit - appearance: none;
+    appearance: none;
+    height: 4px;
+    border - radius: 2px;
+    background: linear - gradient(to right, #d3d3d3, #aaa);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
 
-        /* Track (hover) */
-        .mac-slider:hover {
-            background: linear-gradient(to right, #e0e0e0, #b8b8b8);
-        }
+                        /* Track (hover) */
+                        .mac - slider:hover {
+    background: linear - gradient(to right, #e0e0e0, #b8b8b8);
+}
 
-        /* Thumb */
-        .mac-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
+                        /* Thumb */
+                        .mac - slider:: -webkit - slider - thumb {
+    -webkit - appearance: none;
+    height: 16px;
+    width: 16px;
+    border - radius: 50 %;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box - shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
 
-        /* Thumb hover */
-        .mac-slider::-webkit-slider-thumb:hover {
-            background: #fafafa;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.35);
-            transform: scale(1.08);
-        }
+                        /* Thumb hover */
+                        .mac - slider:: -webkit - slider - thumb:hover {
+    background: #fafafa;
+    box - shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+    transform: scale(1.08);
+}
 
-        /* Firefox */
-        .mac-slider::-moz-range-thumb {
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-    `}</style>
+                        /* Firefox */
+                        .mac - slider:: -moz - range - thumb {
+    height: 16px;
+    width: 16px;
+    border - radius: 50 %;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box - shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+`}</style>
                 </div>
 
 
@@ -263,6 +284,7 @@ int main() {
 
                     {/* WORD WRAP */}
                     <button
+                        type="button"
                         onClick={() => setWordWrap((v) => !v)}
                         style={{
                             padding: "6px 12px",
@@ -279,6 +301,7 @@ int main() {
 
                     {/* PRETTIFY */}
                     <button
+                        type="button"
                         onClick={prettifyCode}
                         style={{
                             padding: "6px 14px",

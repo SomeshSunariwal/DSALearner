@@ -3,6 +3,7 @@ const CONSTANTS = {
     PROBLEM_META_DATA: "problems-meta",
     PROBLEM: "problem",
     SLASH: "/",
+    SAMPLE_CODE: "SampleCode",
 };
 
 export default CONSTANTS;
