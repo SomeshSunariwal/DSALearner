@@ -4,15 +4,18 @@ import { useEffect } from "react";
 import AnimatedList from "../UIComp/AnimatedList";
 import { fetchProblemListStart } from "../data_store/problemList_store";
 import { fetchProblemStart } from "../data_store/problem_store";
+import AddProblemModal from "./AddProblemModal";
 import { useRef } from "react";
 
 export default function ProblemList() {
 
 
+    const [items, setItems] = useState([]);
     const [openLevel, setOpenLevel] = useState(null);
     const [openCategory, setOpenCategory] = useState({});
-    const [items, setItems] = useState([]);
+    const [showAddModal, setShowAddModal] = useState(false);
     const [dynamicCategories, setDynamicCategories] = useState([]);
+
 
     const dispatch = useDispatch();
     const problemList = useSelector(state => state.problemList.data);
@@ -90,7 +93,24 @@ export default function ProblemList() {
 
     return (
         <div>
-            <h4>Problem List</h4>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <h4>Problem List</h4>
+
+                <button
+                    onClick={() => setShowAddModal(true)}
+                    style={{
+                        marginLeft: "auto",
+                        padding: "6px 12px",
+                        borderRadius: "6px",
+                        border: "none",
+                        background: "#4f46e5",
+                        color: "#fff",
+                        cursor: "pointer"
+                    }}
+                >
+                    + Add
+                </button>
+            </div>
 
             {/* OUTER COLLAPSABLES: Easy, Medium, Hard */}
 
@@ -203,6 +223,13 @@ export default function ProblemList() {
                         )}
                     </div>
                 ))}
+
+            <AddProblemModal
+                isOpen={showAddModal}
+                onClose={() => setShowAddModal(false)}
+                levels={levels}
+                categories={dynamicCategories}
+            />
         </div>
     );
 }
