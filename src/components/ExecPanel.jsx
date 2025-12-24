@@ -1,59 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./execpanel.css";
 import ElectricBorder from "../UIComp/ElectricBorder";
 import GlareHover from "../UIComp/GlareHover";
-import { runCode } from "../api/runCode";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRunCodeStart } from "../data_store/run_code_store";
 
 export default function ExecPanel() {
+    const dispatch = useDispatch();
+
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("Output will appear here...");
-    const [loading, setLoading] = useState(false);
+    const hasRunRef = useRef(false); // 👈 KEY FIX
 
-    // Ensure global values exist
-    useEffect(() => {
-        if (!window.currentCode) window.currentCode = "";
-        if (!window.currentLanguage) window.currentLanguage = "cpp";
-        if (!window.currentMode) window.currentMode = "local";
-    }, []);
+    const { data, loading, error } = useSelector(state => state.runCode);
 
-    const handleRun = async () => {
-        if (!window.currentCode.trim()) {
+    /* ============================= */
+    /* RUN BUTTON CLICK */
+    /* ============================= */
+    const handleRun = () => {
+        if (!window.currentCode?.trim()) {
             setOutput("❌ No code found in editor");
             return;
         }
 
-        setLoading(true);
         setOutput("Running...");
 
-        const result = await runCode({
+        dispatch(fetchRunCodeStart({
             language: window.currentLanguage,
             code: window.currentCode,
             stdin: input,
             mode: window.currentMode
-        });
+        }));
+    };
 
-        if (result.success) {
+    /* ============================= */
+    /* HANDLE SAGA RESULT */
+    /* ============================= */
+    useEffect(() => {
+        if (!data) return;
+
+        if (data.success) {
             const out =
-                (result.run && result.run.stdout) ||
-                result.stdout ||
+                data.run?.stdout ||
+                data.stdout ||
                 "";
+
             setOutput(out || "");
         } else {
-            const error =
-                result.compile?.stderr ||
-                result.run?.stderr ||
-                result.error ||
-                "Unknown error";
-            setOutput(error);
-        }
+            const err =
+                data.compile?.stderr ||
+                data.run?.stderr ||
+                data.error ||
+                output;
 
-        setLoading(false);
-    };
+            setOutput(err);
+        }
+    }, [data]);
+
+    /* ============================= */
+    /* HANDLE ERROR */
+    /* ============================= */
+    useEffect(() => {
+        if (!hasRunRef.current || !error) return;
+        setOutput(error);
+    }, [error]);
+
 
     return (
         <div className="exec-container">
 
-            {/* INPUT AREA */}
+            {/* INPUT */}
             <div className="exec-input-wrapper">
                 <strong className="exec-input-label">Input</strong>
 
@@ -62,13 +78,12 @@ export default function ExecPanel() {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter input here..."
                     className="exec-input-area"
-                ></textarea>
+                />
             </div>
 
             {/* BUTTONS */}
             <div className="exec-buttons">
 
-                {/* Run button (GlareHover) */}
                 <GlareHover
                     glareColor="#ffffff"
                     glareOpacity={0.3}
@@ -87,7 +102,6 @@ export default function ExecPanel() {
                     </button>
                 </GlareHover>
 
-                {/* Submit (future feature) */}
                 <ElectricBorder color="#00eaff" speed={1.5} chaos={1.2} thickness={2}>
                     <button
                         type="button"
@@ -99,7 +113,7 @@ export default function ExecPanel() {
                 </ElectricBorder>
             </div>
 
-            {/* OUTPUT BOX */}
+            {/* OUTPUT */}
             <div className="exec-output">
                 <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
                     {output}

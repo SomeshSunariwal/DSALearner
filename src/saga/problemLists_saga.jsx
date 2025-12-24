@@ -8,7 +8,7 @@ import {
     fetchProblemListFailure
 } from "../data_store/problemList_store";
 
-function* fetchProblemsSaga() {
+function* fetchProblemListSaga() {
     try {
         const endpoint = CONSTANTS.BASE_URLS + CONSTANTS.SLASH + CONSTANTS.PROBLEM_META_DATA;
         console.log("Hitted Endpoint" + endpoint);
@@ -23,5 +23,5 @@ function* fetchProblemsSaga() {
 }
 
 export default function* problemListWatcher() {
-    yield takeLatest(fetchProblemListStart.type, fetchProblemsSaga);
+    yield takeLatest(fetchProblemListStart.type, fetchProblemListSaga);
 }

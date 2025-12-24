@@ -30,6 +30,7 @@ int main() {
     const { data, loading, error } = useSelector((state) => state.problem);
 
     useEffect(() => {
+
         if (loading || error || !data) return;
 
         const problemChanged = data.ProblemName !== lastProblemRef.current;
