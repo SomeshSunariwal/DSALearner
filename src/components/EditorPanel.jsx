@@ -76,6 +76,20 @@ int main() {
         ////////////////////////////////////////////
     };
 
+    const resetCode = () => {
+        const resetValue =
+            data?.[Constant.SAMPLE_CODE]?.[language] || DefaultCode;
+
+        setCode(resetValue);
+        window.currentCode = resetValue;
+
+        // Reset Monaco editor content safely
+        if (editorRef.current) {
+            editorRef.current.setValue(resetValue);
+            editorRef.current.focus();
+        }
+    };
+
     return (
         <div className="editor-container">
             {/* Toolbar */}
@@ -92,13 +106,6 @@ int main() {
                     <option value="java">Java</option>
                 </select>
 
-                <button
-                    type="button"
-                    onClick={() => setIntellisense(v => !v)}
-                    className={`editor-intellisense-btn ${intellisense ? "editor-intellisense-on" : "editor-intellisense-off"}`}
-                >
-                    IntelliSense: {intellisense ? "ON" : "OFF"}
-                </button>
 
                 <select
                     value={window.currentMode}
@@ -108,6 +115,14 @@ int main() {
                     <option value="local">Local Compiler</option>
                     <option value="docker">Docker</option>
                 </select>
+
+                <button
+                    type="button"
+                    onClick={() => setIntellisense(v => !v)}
+                    className={`editor-intellisense-btn ${intellisense ? "editor-intellisense-on" : "editor-intellisense-off"}`}
+                >
+                    IntelliSense: {intellisense ? "ON" : "OFF"}
+                </button>
 
                 <div className="font-slider">
                     <label>{fontSize}px</label>
@@ -124,13 +139,24 @@ int main() {
                 <div className="toolbar-right">
                     <button
                         type="button"
+                        className="reset-btn"
+                        onClick={resetCode}
+                    >
+                        🔄 Reset
+                    </button>
+                    <button
+                        type="button"
                         className={`wrap-btn ${wordWrap ? "on" : "off"}`}
                         onClick={() => setWordWrap(v => !v)}
                     >
                         Wrap: {wordWrap ? "ON" : "OFF"}
                     </button>
 
-                    <button type="button" className="prettify-btn" onClick={prettifyCode}>
+                    <button
+                        type="button"
+                        className="prettify-btn"
+                        onClick={prettifyCode}
+                    >
                         ✨ Prettify
                     </button>
                 </div>
